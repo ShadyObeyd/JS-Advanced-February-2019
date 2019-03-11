@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Items List</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<h1>List of Items</h1>
+<ul id="items"><li>First</li><li>Second</li></ul>
+<input type="text" id="newText" />
+<input type="button" value="Add" onclick="addItem()">
+<script>
+    function addItem() {
+        let items = $('#items');
+        let item = $('#newText').val();
+        let delLink = $('<a href="#">').text('[Delete]');
+        let listElement = $('<li>').text(item).append(delLink);
+
+       items.append(listElement);
+
+        $('a').on('click', (e) => {
+            let target = $(e.target.parentNode);
+            target.remove();
+        })
+    }
+</script>
+</body>
+</html>

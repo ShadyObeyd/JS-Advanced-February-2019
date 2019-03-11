@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div id="time" style="border:3px solid blue; text-align:center; font-size:2em; margin-bottom:10px">00:00</div>
+    <button id="startBtn">Start</button>
+    <button id="stopBtn" disabled="true">Stop</button>
+    <script>
+        window.onload = function stopWatch() {
+            let timeElement = $('#time');
+            let timer;
+            $('#startBtn').on('click', () => {
+                timeElement.text('00:00');
+                timer = setInterval(step, 1000);
+                $('#startBtn').attr('disabled', true);
+                $('#stopBtn').removeAttr('disabled');
+            });
+
+            $('#stopBtn').on('click', () => {
+                clearInterval(timer);
+                $('#startBtn').removeAttr('disabled');
+                $('#stopBtn').attr('disabled', true);
+            });
+
+            function step() {
+                let timeTokens = $('#time').text().split(':');
+                let minutes = Number(timeTokens[0]);
+                let seconds = Number(timeTokens[1]);
+                seconds++;
+
+                let secondsStr = '';
+
+                if(seconds <= 9){
+                    secondsStr = `0${seconds}`;
+                }
+                else{
+                    secondsStr = `${seconds}`;
+                }
+
+                if(seconds === 60){
+                    secondsStr = '00';
+                    minutes++;
+                }
+
+                let minutesStr = '';
+
+                if(minutes <= 9){
+                    minutesStr = `0${minutes}`;
+                }
+                else{
+                    minutesStr = `${minutes}`;
+                }
+
+                timeElement.text(`${minutesStr}:${secondsStr}`);
+            }
+        }
+    </script>
+</body>
+</html>
